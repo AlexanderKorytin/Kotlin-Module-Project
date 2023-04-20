@@ -9,22 +9,22 @@ open class Menu(val mapOfMenu: MutableMap<String, ()->Unit>) {
         val mapOfArchiveNotes: MutableMap<String, MutableMap<String, Note>> = mutableMapOf()
     }
 
-    fun scanInt(): Int {
+    fun scanInt(min: Int, max: Int): Int {
         while (true) {
             val scan = Scanner(System.`in`)
             if (scan.hasNextInt()) {
                 val scanInt = scan.nextInt()
                 when (scanInt) {
-                    in 0..mapOfMenu.size - 1 -> return scanInt
-                    else -> println("Введите число от 0 до ${mapOfMenu.size - 1}")
+                    in min..max -> return scanInt
+                    else -> println("Введите число от $min до $max")
                 }
-            } else println("Введите число от 0 до ${mapOfMenu.size - 1}")
+            } else println("Введите число от $min до $max")
         }
     }
 
-    fun scanStr(): String {
+    fun scanStr(message: String): String {
         val scan = Scanner(System.`in`)
-        println("введите название")
+        println("введите название $message")
         while(true) {
             if(scan.hasNextLine()) {val scanString = scan.nextLine()
                 return scanString}
@@ -38,7 +38,7 @@ open class Menu(val mapOfMenu: MutableMap<String, ()->Unit>) {
         listOfItem.forEachIndexed { index, s -> println("${index} ${s}") }
     }
     fun choiceMenuItem() {
-        val item = scanInt()
+        val item = scanInt(0, mapOfMenu.size-1)
         fun function() = mapOfMenu[listOfItem[item]]
         function()?.invoke()
     }

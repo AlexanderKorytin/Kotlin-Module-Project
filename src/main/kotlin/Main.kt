@@ -5,10 +5,7 @@ fun main() {
     val menu = MenuArchive(mapOfMenu)
     menu.mapOfMenuItem.putIfAbsent("Создать", {menu.create()})
     menu.mapOfMenuItem.putIfAbsent("Выход", {menu.exit()})
-    while(true){
-        menu.printMenu("\nСписок архивов заметок.\n----------\nМеню:" , mapOfMenu)
-        menu.choiceMenuItem()
-    }
+    menu.run("\nСписок архивов заметок.\n----------\nМеню:", mapOfMenu)
 }
 
 

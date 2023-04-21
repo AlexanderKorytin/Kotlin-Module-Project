@@ -7,21 +7,14 @@ class MenuNote(val nameNote: String,
                val mapOfMenuItemNote: MutableMap<String, ()->Unit>
 ): MenuNotes(nameArchive, mapOfMenuItemNote) {
     override fun create() {
-        val content: String = scanStr("Введите текст заметки:\n")
-        mapOfArchiveNotes[nameArchive]?.put(nameNote, Note(content))
+        val content: String = scanStr("Введите текст заметки:")
+        mapOfArchiveNotes[nameArchive]?.put(nameNote, Note("Содержание: $content"))
+        context = "$content\n----------\nМеню:"
     }
 
     override fun exit(){
-        mapOfMenuItemNotes.clear()
-        mapOfMenuItemNotes.put("Создать", {super.create()})
-        mapOfArchiveNotes[nameArchiveNotes]?.onEach{entry -> mapOfMenuItemNotes.put(entry.key, {selectedNote(entry.key, nameArchiveNotes)}) }
-        mapOfMenuItemNotes.putIfAbsent("Удалить", {super.deleted()})
-        mapOfMenuItemNotes.putIfAbsent("Выход", {super.exit()})
         val menu = MenuNotes(nameArchive ,mapOfMenuItemNotes)
-
-        while(true) {
-            menu.printMenu("\nСписок заметок.\n  \nАрихив $nameArchive.\n----------\n Меню:", mapOfMenuItemNotes)
-            menu.choiceMenuItem()
-        }
+        menu.initmenuNotes()
+        menu.run("\nСписок заметок.\n  \nАрихив $nameArchive.\n----------\n Меню:", mapOfMenuItemNotes)
     }
 }

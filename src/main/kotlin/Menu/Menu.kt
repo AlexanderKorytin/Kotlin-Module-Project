@@ -5,6 +5,7 @@ import java.util.*
 
 open class Menu(val mapOfMenu: MutableMap<String, ()->Unit>) {
     private val listOfItem: MutableList<String> = mutableListOf()
+    var context: String? = null
     companion object {
         val mapOfArchiveNotes: MutableMap<String, MutableMap<String, Note>> = mutableMapOf()
     }
@@ -31,8 +32,9 @@ open class Menu(val mapOfMenu: MutableMap<String, ()->Unit>) {
         }
     }
 
-    fun printMenu(message: String, mapOfMenuItem: MutableMap<String, () -> Unit>) {
+    fun printMenu(message:String, mapOfMenuItem: MutableMap<String, () -> Unit>) {
         println(message)
+        if (context != null) println(context)
         listOfItem.clear()
         mapOfMenuItem.onEachIndexed { index, entry -> listOfItem.add(index, entry.key) }
         listOfItem.forEachIndexed { index, s -> println("${index} ${s}") }
@@ -43,4 +45,10 @@ open class Menu(val mapOfMenu: MutableMap<String, ()->Unit>) {
         function()?.invoke()
     }
 
+    fun run(message: String, mapOfMenu: MutableMap<String, () -> Unit>){
+        while(true){
+            printMenu(message, mapOfMenu)
+            choiceMenuItem()
+        }
+    }
 }

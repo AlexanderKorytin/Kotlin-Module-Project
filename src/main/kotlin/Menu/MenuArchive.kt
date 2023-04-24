@@ -26,6 +26,7 @@ open class MenuArchive(val mapOfMenuItem: MutableMap<String, ()->Unit>): Menu(ma
     }
     // заверщение программы
    open fun exit() {
+        scan.close()
         exitProcess(0)
     }
 
@@ -34,7 +35,7 @@ open class MenuArchive(val mapOfMenuItem: MutableMap<String, ()->Unit>): Menu(ma
         val mapOfMenuItemNotes: MutableMap<String, () -> Unit> = mutableMapOf()
         val menu = MenuNotes(name, mapOfMenuItemNotes)
         menu.initmenuNotes()
-        menu.run("\nСписок заметок.\n  \nАрихив $name.\n----------\n Меню:", mapOfMenuItemNotes)
+        menu.run("\nСписок заметок.\n  \nАрихив $name.\n----------\n Меню:", mapOfMenuItemNotes, context = null)
     }
     // функция инициализации меню списка архивов. принцип описан выше (функция create())
     fun initmenuArchive(){

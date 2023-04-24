@@ -1,7 +1,6 @@
 package Menu
 
 import Note
-import java.io.Console
 import java.util.*
 
 // класс реализующий общую логику всех меню
